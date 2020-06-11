@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .myDiv{
+            display: inline-block;
+            text-align: center;
+        }
+        .myDiv image {
+            width: 125px;
+            height: 175px;
+        }
+    </style>
+</head>
+<body onload="show()">
+    <h1>Admin Products Manager Update!</h1>
+    <h2 id="content"></h2>
+    <button onclick=update()>Update Product</button>
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var id=urlParams.get('id');
+        var srcData,product;
+
+        function show() {
+            if(id!=null){
+                window.sessionStorage.setItem('id', id);
+            }
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    product = JSON.parse(this.responseText);
+                    var txt="<div>";
+                    txt+=("<div class=myDiv><img src='"+product.image+"'> </div>");
+                    txt+=("<div class=myDiv><form action=''><label>Product Name: </label><input type='text' id='productName' value='"+product.productName+"'><br>" +
+                        "<label>Price: </label><input type='txt' id='price' value='"+product.price+"'><br>");
+                    txt+=("<label>FontCamera: </label><input type='text' id='fontCamera' value='"+product.fontCamera+"'><br>");
+                    txt+=("<label>BackCamera: </label><input type='text' id='backCamera' value='"+product.backCamera+"'><br>");
+                    txt+=("<label>Ram: </label><input type='text' id='ram' value='"+product.ram+"'><br>");
+                    txt+=("<label>Rom: </label><input type='text' id='rom' value='"+product.rom+"'><br>");
+                    txt+=("<label>Chip: </label><input type='text' id='chip' value='"+product.chip+"'><br>");
+                    txt+=("<label>Screen: </label><input type='text' id='screen' value='"+product.screen+"'><br>");
+                    txt+=("<label>Select Image: </label><input type='file' id='image' onchange='encodeFileImageAsURL()'><br><br>");
+                    txt+=("</div></div>");
+                    document.getElementById('content').innerHTML = txt;
+                }
+
+            };
+            if(id==null) id = window.sessionStorage.getItem('id');
+            var obj={"id":id};
+            var myJSON = JSON.stringify(obj);
+
+            xhttp.open('POST', 'http://localhost:8080/admin/productDetail', true);
+            xhttp.setRequestHeader('Content-type', 'application/json');
+            xhttp.send(myJSON);
+
+        }
+
+        function update() {
+            var productName=document.getElementById('productName').value;
+            var price=document.getElementById('price').value;
+            var fontCamera=document.getElementById('fontCamera').value;
+            var backCamera=document.getElementById('backCamera').value;
+            var ram=document.getElementById('ram').value;
+            var rom=document.getElementById('rom').value;
+            var chip=document.getElementById('chip').value;
+            var screen=document.getElementById('screen').value;
+            var image=document.getElementById('image').value;
+
+            if (productName == '' || price == '' || fontCamera == '' || backCamera == '' || ram == '' || rom == '' || chip == '' || screen == '' || isNaN(price)) {
+                alert('Input is illegal!');
+            } else {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status==200) {
+                        alert(this.responseText);
+                        location.reload();
+                    }
+
+                };
+                if(srcData==''||srcData==null) srcData = product.image;
+
+                var obj = {
+                    "id": id,
+                    "productName": productName,
+                    "price": price,
+                    "fontCamera": fontCamera,
+                    "backCamera": backCamera,
+                    "ram": ram,
+                    "rom": rom,
+                    "chip": chip,
+                    "screen": screen,
+                    "image": srcData
+                };
+
+                var myJSON = JSON.stringify(obj);
+                xhttp.open('POST', 'http://localhost:8080/admin/productsManagerUpdate', true);
+                xhttp.setRequestHeader('Content-type', 'application/json');
+                xhttp.send(myJSON);
+
+
+            }
+        }
+
+        function encodeFileImageAsURL() {
+            var filesSelected=document.getElementById('image').files;
+            if (filesSelected.length > 0) {
+                var fileToLoad=filesSelected[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function (fileLoadedEvent) {
+                    srcData = fileLoadedEvent.target.result;
+                };
+                fileReader.readAsDataURL(fileToLoad);
+            }
+
+        }
+    </script>
+</body>
+</html>

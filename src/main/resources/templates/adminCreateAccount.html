@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Create Account!</h1>
+<form action="">
+    <label>Username: </label><input type="text" id="username"><br>
+    <label>Password: </label><input type="password" id="password"><br>
+    <label>Retype Password: </label><input type="password" id="retypePassword"><br><br>
+
+    <button type="button" onclick="clickButton()">Create Account</button><br><br>
+</form>
+<script>
+    function clickButton() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var retypePassword=document.getElementById('retypePassword').value;
+
+        if (username == '' || password == '' || (retypePassword != password)) {
+            alert("Input is illegal!");
+        } else {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText);
+                    if(this.responseText=='Create Account Success!') window.location.href = "http://localhost:8080/admin";
+                }
+            };
+            var obj = {"username": username, "password": password};
+            var myJSON = JSON.stringify(obj);
+
+            xhttp.open("POST", "http://localhost:8080/admin/createAccount", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(myJSON);
+        }
+    }
+
+</script>
+
+</body>
+</html>

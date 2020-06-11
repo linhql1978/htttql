@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .customer {
+            display: inline-block;
+            text-align: center;
+            margin: auto;
+            align-content: center;
+        }
+    </style>
+</head>
+<body onload="show()">
+    <h1>Customer Detail!</h1>
+    <h2><span id="result"></span></h2>
+    <script>
+        function show() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var customer = JSON.parse(this.responseText);
+                    var txt = "<div class='customer'><h1>"+customer.username+"</h1>";
+                    txt+=("<label>City: </label><input type='text' id='city' value='"+customer.city+"'><br>");
+                    txt+=("<label>Address: </label><input type='text' id='address' value='"+customer.address+"'><br>");
+                    txt+=("<label>Phone: </label><input type='text' id='phone' value='"+customer.phone+"'><br><br>");
+                    txt+=("<button type='button' onclick='updateInfo("+customer.id+")'>Update</button></div>");
+
+                    document.getElementById('result').innerHTML = txt;
+                }
+
+            };
+
+            xhttp.open('POST', 'http://localhost:8080/customer/detail', true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+
+        }
+
+        function updateInfo(id) {
+            var city = document.getElementById('city').value;
+            var address = document.getElementById('address').value;
+            var phone = document.getElementById('phone').value;
+            if (city == '' || address == '' || phone == '') {
+                alert('Input is illegal!');
+            } else {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        alert(this.responseText);
+                        location.reload();
+                    }
+
+                };
+
+                var obj = {"id": id, "city": city, "address": address, "phone": phone};
+                var myJSON = JSON.stringify(obj);
+
+                xhttp.open('POST', 'http://localhost:8080/customer/updateInfo', true);
+                xhttp.setRequestHeader('Content-type', 'application/json');
+                xhttp.send(myJSON);
+            }
+        }
+    </script>
+</body>
+</html>

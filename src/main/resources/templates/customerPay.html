@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .product{
+            display: block;
+            text-align: center;
+        }
+        .productDetail{
+            display: inline-block;
+            text-align: center;
+        }
+        .productDetail img{
+            width: 125px;
+            height: 175px;
+        }
+        .productDetail table{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body onload="show()">
+    <h1>Pay!</h1>
+    <h2 id="content"></h2>
+    <script>
+        function show() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var cart = JSON.parse(this.responseText);
+                    var txt = "<div>",i,total=0;
+                    for (i in cart.cartProducts) {
+                        txt+=("<div class='product'>");
+                        txt+=("<div class='productDetail'><a href='/productDetail?id="+cart.cartProducts[i].product.id+"'><img src='"+cart.cartProducts[i].product.image+"'></a></div>");
+                        txt+=("<div class='productDetail'><table><tr><td>Price: </td><td>"+cart.cartProducts[i].product.price+"</td></tr><tr><td>Quantity: </td><td>"+cart.cartProducts[i].quantity+"</td></tr></table></div>");
+                        total += (cart.cartProducts[i].quantity * cart.cartProducts[i].product.price);
+                    }
+                    txt+="<h1>Total= "+total+"</h1>";
+                    txt+="<button type='button' onclick='pay()'>Pay</button>";
+                    txt+="</div>";
+                    document.getElementById('content').innerHTML=txt;
+                }
+            };
+
+            xhttp.open('POST', 'http://localhost:8080/customer/cartDetail', true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+        }
+
+        function pay() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText);
+                    location.href = "/index";
+                }
+
+            };
+
+            xhttp.open('POST', "http://localhost:8080/customer/pay", true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>

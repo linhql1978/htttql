@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Add Product!</h1>
+    <form action="">
+
+        <label>ProductName: </label><input type="text" id="productName"><br>
+        <label>Price: </label><input type="text" id="price"><br>
+        <label>FontCamera: </label><input type="text" id="fontCamera"><br>
+        <label>BackCamera: </label><input type="text" id="backCamera"><br>
+        <label>Ram: </label><input type="text" id="ram"><br>
+        <label>Rom: </label><input type="text" id="rom"><br>
+        <label>Chip: </label><input type="text" id="chip"><br>
+        <label>Screen: </label><input type="screen" id="screen"><br>
+        <label>Image: </label><input type="file" id="image" onchange="encodeImageFileAsURL()"><br>
+        <label>ProductCategorizeName: </label><input type="text" id="productCategorizeName"><br><br>
+
+        <button type="button" onclick="clickButton()">Add Product</button>
+    </form>
+<!--    <h1><span id="result"></span></h1>-->
+
+    <script>
+        var srcData;
+        function clickButton() {
+            var productName=document.getElementById('productName').value;
+            var price=document.getElementById('price').value;
+            var fontCamera=document.getElementById('fontCamera').value;
+            var backCamera=document.getElementById('backCamera').value;
+            var ram=document.getElementById('ram').value;
+            var rom=document.getElementById('rom').value;
+            var chip=document.getElementById('chip').value;
+            var screen=document.getElementById('screen').value;
+            var image=document.getElementById('image').value;
+            var productCategorizeName=document.getElementById('productCategorizeName').value;
+
+            if (productName == '' || price == '' || fontCamera == '' || backCamera == '' || ram == '' || rom == '' || chip == '' || screen == '' || image == '' || productCategorizeName == '' || isNaN(price)) {
+                // document.getElementById('result').innerHTML = "Input is illegal!";
+                alert("Input is illegal!");
+            } else {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // document.getElementById('result').innerHTML = this.responseText;
+                        alert(this.responseText);
+                    }
+                };
+                var obj = {
+                    "productName": productName,
+                    "price": price,
+                    "fontCamera": fontCamera,
+                    "backCamera": backCamera,
+                    "ram": ram,
+                    "rom": rom,
+                    "chip": chip,
+                    "screen": screen,
+                    "image": srcData,
+                    "productCategorizeName":productCategorizeName};
+                var myJSON = JSON.stringify(obj);
+
+                xhttp.open("POST", "http://localhost:8080/admin/addProduct", true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.send(myJSON);
+            }
+
+        }
+        ///###
+        function encodeImageFileAsURL() {
+            var filesSelected = document.getElementById('image').files;
+            if(filesSelected.length>0){
+                var fileToLoad = filesSelected[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function (fileLoadedEvent) {
+                    srcData = fileLoadedEvent.target.result;
+                };
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+        ///#####
+    </script>
+</body>
+</html>

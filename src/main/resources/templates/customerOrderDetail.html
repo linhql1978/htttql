@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .product{
+            display: block;
+        }
+        .productDetail{
+            display: inline-block;
+            text-align: center;
+        }
+        .productDetail img {
+            width: 125px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body onload="show()">
+    <h1>Order Detail!</h1>
+    <h2 id="result"></h2>
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get('id');
+
+        function show() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var orderDetail = JSON.parse(this.responseText);
+                    var txt="<div>",i;
+                    for (i in orderDetail.orderDetailProducts) {
+                        txt+=("<div class=product>");
+                        txt+=("<div class=productDetail><h2>"+orderDetail.orderDetailProducts[i].product.productName+"</h2>");
+                        txt+=("<a href='/productDetail?id="+orderDetail.orderDetailProducts[i].product.id+"'><img src='"+orderDetail.orderDetailProducts[i].product.image+"'></a></div>");
+                        txt+=("<div class='productDetail'><table><tr><td>Price: </td><td>"+orderDetail.orderDetailProducts[i].product.price+"</td></tr><tr><td>Quantity: </td><td>"+orderDetail.orderDetailProducts[i].quantity+"</td></tr></table>");
+                        txt+=("</div></div>");
+                    }
+                    txt+="</div>";
+                    document.getElementById('result').innerHTML=txt;
+                }
+
+            };
+            var obj={"id":id};
+            var myJSON = JSON.stringify(obj);
+
+            xhttp.open('POST', 'http://localhost:8080/customer/orderDetail', true);
+            xhttp.setRequestHeader('Content-type', 'application/json');
+            xhttp.send(myJSON);
+
+        }
+    </script>
+</body>
+</html>

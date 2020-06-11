@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #productDetail {
+            text-align: center;
+            margin: auto;
+            align-content: center;
+        }
+        #productDetail div{
+            display: inline-block;
+        }
+        #productDetail div img{
+            width: 270px;
+            height: 350px;
+        }
+        #productDetail div table,tr,td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body onload="show()">
+    <h1>Product Detail!</h1>
+    <div id="content"></div>
+    <h1 id="result"></h1>
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get('id');
+        function show() {
+            if (id != null) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var product = JSON.parse(this.responseText);
+                        var txt = "<div id='productDetail'><div>";
+
+                        txt+=("<h1>"+product.productName+"</h1><img src="+product.image+"><br><br>");
+                        txt+=("<label>Select Quantity: </label><input type='number' id='quantity' min='1' value='1'><br><br>");
+                        txt+=("<button type='button' onclick='byNow()'>By Now</button><button type='button' onclick='addToCart()'>Add To Cart</button></div>");
+                        txt+=("<div><table><tr><td>Price: </td>"+"<td>"+product.price+"</td></tr>");
+                        txt+=("<tr><td>FontCamera: </td><td>"+product.fontCamera+"</td></tr>");
+                        txt+=("<tr><td>BackCamera: </td><td>"+product.backCamera+"</td></tr>");
+                        txt+=("<tr><td>Ram: </td><td>"+product.ram+"</td></tr>");
+                        txt+=("<tr><td>Rom: </td><td>"+product.rom+"</td></tr>");
+                        txt+=("<tr><td>Chip: </td><td>"+product.chip+"</td></tr>");
+                        txt+=("<tr><td>Screen: </td><td>"+product.screen+"</td></tr>");
+
+                        txt+=("</div></div>");
+                        document.getElementById('content').innerHTML=txt;
+                    }
+                };
+                var obj={"id": id};
+                var myJSON = JSON.stringify(obj);
+
+                xhttp.open("POST", "http://localhost:8080/productDetail", true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.send(myJSON);
+            }
+
+        }
+
+        function byNow() {
+            addToCart();
+            location.href=("/customer/pay");
+        }
+
+        function addToCart() {
+            var quantity = document.getElementById('quantity').value;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText);
+                }
+            };
+            var obj={"quantity":quantity,"product":{"id":id}};
+            var myJSON = JSON.stringify(obj);
+
+            xhttp.open("POST", "http://localhost:8080/customer/addToCart", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(myJSON);
+        }
+    </script>
+</body>
+</html>

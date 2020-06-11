@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #product{
+            text-align: center;
+            display: inline-block;
+            margin: 10px;
+            color: cadetblue;
+            padding: 20px;
+        }
+        #product img{
+            width: 145px;
+            height: 175px;
+        }
+    </style>
+</head>
+<body onload="show()">
+    <h1>Hello World!</h1>
+    <p id="content"></p>
+    <script>
+        function show() {
+            var xhttp=new XMLHttpRequest();
+            xhttp.onreadystatechange=function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var txt="<div>",i;
+                    var products = JSON.parse(this.responseText);
+
+                    for (i in products) {
+                        txt+="<div id=\"product\">";
+                        txt+=("<a href='/productDetail?id="+products[i].id+"'><img src="+products[i].image+"></a>");
+                        txt+=("<p>"+products[i].productName+"</p>");
+                        txt+="</div>";
+                    }
+                    txt+="</div>";
+                    document.getElementById("content").innerHTML=txt;
+                }
+            };
+
+            xhttp.open("POST", "http://localhost:8080", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>

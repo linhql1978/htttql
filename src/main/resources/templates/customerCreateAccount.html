@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Customer</title>
+</head>
+<body>
+    <h1>Create Account!</h1>
+
+    <form action="">
+        <label>Username: </label><input type="text" id="username"><br>
+        <label>Password: </label><input type="password" id="password"><br>
+        <label>Password again: </label><input type="password" id="passwordAgain"/><br>
+        <label>City: </label><input type="text" id="city"><br>
+        <label>Address: </label><input type="text" id="address"><br>
+        <label>Phone: </label><input type="text" id="phone"><br><br>
+
+        <button type="button" onclick="clickButton()">Create Account</button><br><br>
+
+    </form>
+    <script>
+        function clickButton() {
+            var username=document.getElementById("username").value;
+            var password=document.getElementById("password").value;
+            var passwordAgain = document.getElementById("passwordAgain").value;
+            var city = document.getElementById('city').value;
+            var address = document.getElementById('address').value;
+            var phone=document.getElementById('phone').value;
+
+            if (username == '' || password == '' || city == '' || address == '' || phone == ''||(password!=passwordAgain)) {
+                alert("Input is illegal!");
+            } else {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        alert(this.responseText);
+                    }
+                };
+                var obj = {"username": username, "password": password, "city": city, "address": address, "phone": phone};
+                var myJSON = JSON.stringify(obj);
+
+                xhttp.open("POST", "http://localhost:8080/customer/createAccount", true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.send(myJSON);
+            }
+        }
+    </script>
+</body>
+</html>

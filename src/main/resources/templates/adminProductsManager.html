@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .divOut {
+            display: inline-block;
+            /*margin: auto;*/
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+        .divIn{
+            display: inline-block;
+            text-align: center;
+        }
+        .divIn img {
+            height: 175px;
+            width: 125px;
+        }
+        .divIn button {
+            /*display: block;*/
+            /*margin: auto;*/
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body onload="show()">
+    <h1>Admin Products Manager!</h1>
+    <h2 id="content"></h2>
+    <script>
+        function show() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var products = JSON.parse(this.responseText);
+                    var txt="<div>",i;
+                    for (i in products) {
+                        txt+=("<div class=divOut>");
+                        txt+=("<div class=divIn><h1>"+products[i].productName+"</h1>");
+                        txt+=("<img src='"+products[i].image+"'><br>");
+                        txt+=("<a href='/admin/productsManagerUpdate?id="+products[i].id+"'><button>Update</button></a>");
+                        txt+=("<button onclick=deleteProduct("+products[i].id+")>Delete Product</button></div>");
+                    }
+                    txt+="</div>";
+                    document.getElementById('content').innerHTML=txt;
+                }
+            };
+
+            xhttp.open('POST', 'http://localhost:8080', true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+        }
+
+        function deleteProduct(id) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText);
+                    location.reload();
+                }
+
+            };
+            var obj={"id": id};
+            var myJSON = JSON.stringify(obj);
+
+            xhttp.open('POST', 'http://localhost:8080/admin/productsManagerDelete', true);
+            xhttp.setRequestHeader('Content-type', 'application/json');
+            xhttp.send(myJSON);
+
+        }
+    </script>
+</body>
+</html>

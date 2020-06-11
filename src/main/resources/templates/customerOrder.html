@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="show()">
+    <h1>Order!</h1>
+    <h2 id="result"></h2>
+    <script>
+        function show() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // document.getElementById('result').innerHTML = this.responseText;
+                    var orders = JSON.parse(this.responseText);
+                    var txt="",i;
+                    for (i = orders.length - 1; i >= 0; i--) {
+                        txt+=("<a href='/customer/orderDetail?id="+orders[i].id+"'>"+orders[i].time+"</a><br><br>");
+                    }
+
+                    document.getElementById('result').innerHTML=txt;
+                }
+
+            };
+
+            xhttp.open('POST', 'http://localhost:8080/customer/order', true);
+            xhttp.send();
+
+        }
+    </script>
+</body>
+</html>

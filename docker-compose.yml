@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  db:
+    image: library/mysql:8.0.20
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'htttql'
+      MYSQL_ROOT_PASSWORD: '12345'
+    ports:
+      - '3210:3306'
