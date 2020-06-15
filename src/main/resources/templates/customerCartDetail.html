@@ -36,6 +36,7 @@
                         txt+=("</div></div><button type='button' onclick='deleteCartProduct("+cart.cartProducts[i].id+")'>Delete</button><button type='button' onclick='updateCartProduct("+cart.cartProducts[i].id+")'>Update Quantity</button>");
                     }
                     txt+=("</div>");
+                    txt+=("<button type='button' onclick='pay()'>Pay</button>");
 
                     document.getElementById('content').innerHTML = txt;
                 }
@@ -83,6 +84,11 @@
             xhttp.open('POST', 'http://localhost:8080/customer/updateCartProduct', true);
             xhttp.setRequestHeader('Content-type', 'application/json');
             xhttp.send(myJSON);
+
+        }
+
+        function pay() {
+            location.href=("http://localhost:8080/customer/pay");
 
         }
     </script>

@@ -1,21 +1,24 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Product;
+import com.example.demo.entity.ProductCategorize;
+import com.example.demo.service.ProductCategorizeService;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
 
 @Controller
 public class HomeController {
 
-    //    @Autowired
-//    private ProductRepository productRepository;
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductCategorizeService productCategorizeService;
 
     @GetMapping(path = {"/", "/index"})
     public String index() {
@@ -29,13 +32,16 @@ public class HomeController {
 
     @PostMapping("/")
     @ResponseBody
-    public List<Product> index(@RequestBody(required = false) Product product) {
+    public Collection<Product> index(@RequestBody(required = false) ProductCategorize productCategorize) {
+        if (productCategorize != null) {
+            return productCategorizeService.findByProductCategorizeName(productCategorize.getProductCategorizeName()).get().getProducts();
+        }
         return productService.findAll();
     }
 
     @GetMapping("/home")
     public String home() {
-        return "home";
+        return "index";
     }
 
     @GetMapping("/login")

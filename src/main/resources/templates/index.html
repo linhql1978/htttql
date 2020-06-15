@@ -21,6 +21,8 @@
     <h1>Hello World!</h1>
     <p id="content"></p>
     <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var productCategorizeName = urlParams.get('productCategorizeName');
         function show() {
             var xhttp=new XMLHttpRequest();
             xhttp.onreadystatechange=function () {
@@ -41,7 +43,11 @@
 
             xhttp.open("POST", "http://localhost:8080", true);
             xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.send();
+            if (productCategorizeName != null) {
+                var obj={'productCategorizeName': productCategorizeName};
+                var myJSON = JSON.stringify(obj);
+                xhttp.send(myJSON)
+            }else xhttp.send();
         }
     </script>
 </body>

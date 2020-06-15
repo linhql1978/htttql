@@ -20,23 +20,15 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class AdminController {
 
-    //    @Autowired
-//    private AdminRepository adminRepository;
     @Autowired
     private AdminService adminService;
 
-    //    @Autowired
-//    private UserRepository userRepository;
     @Autowired
     private UserService userService;
 
-    //    @Autowired
-//    private ProductRepository productRepository;
     @Autowired
     private ProductService productService;
 
-    //    @Autowired
-//    private ProductCategorizeRepository productCategorizeRepository;
     @Autowired
     private ProductCategorizeService productCategorizeService;
 
