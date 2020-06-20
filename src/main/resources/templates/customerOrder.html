@@ -3,9 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .header-right {
+            float: right;
+        }
+        .header {
+            overflow: hidden;
+            background-color: mediumspringgreen;
+            padding: 20px 10px;
+        }
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+        /*.header a.active {*/
+        /*    background-color: dodgerblue;*/
+        /*    color: white;*/
+        /*}*/
+    </style>
 </head>
 <body onload="show()">
-    <h1>Order!</h1>
+<!--    <h1>Order!</h1>-->
+    <div class="header">
+        <a href="/index">Home</a>
+        <a href="/?productCategorizeName=iPhone">iPhone</a>
+        <a href="/?productCategorizeName=SAMSUNG">Samsung</a>
+        <a href="/?productCategorizeName=Vsmart">Vsmart</a>
+        <a href="/?productCategorizeName=SONY">Sony</a>
+        <a href="">Nokia</a>
+        <div class="header-right">
+            <a href="/customer/cartDetail">Cart Detail</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
     <h2 id="result"></h2>
     <script>
         function show() {

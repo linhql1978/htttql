@@ -65,9 +65,7 @@ public class CustomerController {
 
         customer = customerService.save(customer);
         customer.getCart().setCustomerId(customer.getId());
-//        customer.getCart().setCustomer(customer);
         customer = customerService.saveAndFlush(customer);
-//        cartRepository.saveAndFlush(customer.getCart());
 
         //
         System.out.println("cart: " + customerService.findById(customer.getId()).get().getCart());
@@ -102,8 +100,6 @@ public class CustomerController {
             System.out.println("customerId: "+customer.getId());
             cart = cartService.findByCustomerId(customer.getId()).get();
             customer.setCart(cart);
-//            customer.setCart(cart);
-//            customerRepository.saveAndFlush(customer);
         }
         System.out.println("cart1: " + cart);
         for (CartProduct cartProduct1 : cart.getCartProducts()) {

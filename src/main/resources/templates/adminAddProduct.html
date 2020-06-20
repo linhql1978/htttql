@@ -3,24 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .col-25, .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+        /**/
+        .header-right {
+            float: right;
+        }
+        .header {
+            overflow: hidden;
+            background-color: mediumspringgreen;
+            padding: 20px 10px;
+        }
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+        .addProduct{
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+    </style>
 </head>
 <body>
-    <h1>Add Product!</h1>
-    <form action="">
+<!--    <h1>Add Product!</h1>-->
+    <div class="header">
+        <a href="/admin">Admin Home</a>
+        <a href="/admin/productsManager">Products Manager</a>
+        <!--        <a href="/?productCategorizeName=SAMSUNG">Samsung</a>-->
+        <!--        <a href="/?productCategorizeName=Vsmart">Vsmart</a>-->
+        <!--        <a href="">Sony</a>-->
+        <!--        <a href="">Nokia</a>-->
+        <div class="header-right">
+            <!--            <a href=""></a>-->
+            <a href="/logout">Logout</a>
+        </div>
+    </div><br><br>
 
-        <label>ProductName: </label><input type="text" id="productName"><br>
-        <label>Price: </label><input type="text" id="price"><br>
-        <label>FontCamera: </label><input type="text" id="fontCamera"><br>
-        <label>BackCamera: </label><input type="text" id="backCamera"><br>
-        <label>Ram: </label><input type="text" id="ram"><br>
-        <label>Rom: </label><input type="text" id="rom"><br>
-        <label>Chip: </label><input type="text" id="chip"><br>
-        <label>Screen: </label><input type="screen" id="screen"><br>
-        <label>Image: </label><input type="file" id="image" onchange="encodeImageFileAsURL()"><br>
-        <label>ProductCategorizeName: </label><input type="text" id="productCategorizeName"><br><br>
-
-        <button type="button" onclick="clickButton()">Add Product</button>
-    </form>
+<!--    -->
+    <div class="container">
+        <form action="">
+            <div class="row">
+                <div class="col-25">
+                    <label for="productName">ProductName</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="productName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="price">Price</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="price">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fontCamera">FontCamera</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="fontCamera">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="backCamera">BackCamera</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="backCamera">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="ram">Ram</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="ram">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="rom">Rom</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="rom">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="chip">Chip</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="chip">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="screen">Screen</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="screen">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="productCategorizeName">ProductCategorizeName</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="productCategorizeName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="image">Image</label>
+                </div>
+                <div class="col-75">
+                    <input type="file" id="image" onchange="encodeImageFileAsURL()">
+                </div>
+            </div>
+            <div class="row">
+                <button class="addProduct" type="button" onclick="clickButton()">Add Product</button>
+            </div>
+        </form>
+    </div>
 <!--    <h1><span id="result"></span></h1>-->
 
     <script>

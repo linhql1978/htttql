@@ -19,10 +19,55 @@
         .productDetail table{
             border: 1px solid black;
         }
+        /**/
+        .header-right {
+            float: right;
+        }
+        .header {
+            overflow: hidden;
+            background-color: mediumspringgreen;
+            padding: 20px 10px;
+        }
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+        /*.header a.active {*/
+        /*    background-color: dodgerblue;*/
+        /*    color: white;*/
+        /*}*/
+        .pay {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body onload="show()">
-    <h1>Pay!</h1>
+<!--    <h1>Pay!</h1>-->
+    <div class="header">
+        <a href="/index">Home</a>
+        <a href="/?productCategorizeName=iPhone">iPhone</a>
+        <a href="/?productCategorizeName=SAMSUNG">Samsung</a>
+        <a href="/?productCategorizeName=Vsmart">Vsmart</a>
+        <a href="/?productCategorizeName=SONY">Sony</a>
+        <a href="">Nokia</a>
+        <div class="header-right">
+            <a href="/customer/order">Orders</a>
+    <!--        <a href="/customer/createAccount">Sign up</a>-->
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+
     <h2 id="content"></h2>
     <script>
         function show() {
@@ -38,7 +83,7 @@
                         total += (cart.cartProducts[i].quantity * cart.cartProducts[i].product.price);
                     }
                     txt+="<h1>Total= "+total+"</h1>";
-                    txt+="<button type='button' onclick='pay()'>Pay</button>";
+                    txt+="<button class='pay' type='button' onclick='pay()'>Pay</button>";
                     txt+="</div>";
                     document.getElementById('content').innerHTML=txt;
                 }

@@ -3,21 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Customer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        input[type=password] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .col-25, .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+        .createAccount{
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+    /*    */
+        .header-right {
+            float: right;
+        }
+        .header {
+            overflow: hidden;
+            background-color: mediumspringgreen;
+            padding: 20px 10px;
+        }
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Create Account!</h1>
-
-    <form action="">
-        <label>Username: </label><input type="text" id="username"><br>
-        <label>Password: </label><input type="password" id="password"><br>
-        <label>Password again: </label><input type="password" id="passwordAgain"/><br>
-        <label>City: </label><input type="text" id="city"><br>
-        <label>Address: </label><input type="text" id="address"><br>
-        <label>Phone: </label><input type="text" id="phone"><br><br>
-
-        <button type="button" onclick="clickButton()">Create Account</button><br><br>
-
-    </form>
+<!--    <h1>Create Account!</h1>-->
+    <div class="header">
+        <a href="/index">Home</a>
+        <a href="/?productCategorizeName=iPhone">iPhone</a>
+        <a href="/?productCategorizeName=SAMSUNG">Samsung</a>
+        <a href="/?productCategorizeName=Vsmart">Vsmart</a>
+        <a href="/?productCategorizeName=SONY">Sony</a>
+        <a href="">Nokia</a>
+        <div class="header-right">
+            <a href="/login">Login</a>
+<!--            <a href="/customer/createAccount">Sign up</a>-->
+        </div>
+    </div>
+<!--    -->
+    <div class="container">
+        <form action="">
+            <div class="row">
+                <div class="col-25">
+                    <label>Username</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="username"><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label>Password</label>
+                </div>
+                <div class="col-75">
+                    <input type="password" id="password"><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label>Password again</label>
+                </div>
+                <div class="col-75">
+                    <input type="password" id="passwordAgain"/><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label>City</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="city"><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label>Address</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="address"><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label>Phone</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="phone"><br><br>
+                </div>
+            </div>
+            <div class="row">
+                <button class="createAccount" type="button" onclick="clickButton()">Create Account</button><br><br>
+            </div>
+        </form>
+    </div>
     <script>
         function clickButton() {
             var username=document.getElementById("username").value;

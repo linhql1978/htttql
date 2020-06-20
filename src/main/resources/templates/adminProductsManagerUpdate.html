@@ -6,18 +6,133 @@
     <style>
         .myDiv{
             display: inline-block;
-            text-align: center;
+            /*text-align: center;*/
+            /*align-content: center;*/
+            /*padding: 10px 10px;*/
+            width:700px;
+            /*height: 200px;*/
         }
-        .myDiv image {
-            width: 125px;
-            height: 175px;
+        .myDiv1{
+            display: inline-block;
+            width: 500px;
+        }
+        .myDiv1 image {
+            width: 100px;
+            height: 150px;
+        }
+        /**/
+        .header-right {
+            float: right;
+        }
+        .header {
+            overflow: hidden;
+            background-color: mediumspringgreen;
+            padding: 20px 10px;
+        }
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+        /**/
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .col-25, .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+        .updateProduct {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
         }
     </style>
 </head>
 <body onload="show()">
-    <h1>Admin Products Manager Update!</h1>
+<!--    <h1>Admin Products Manager Update!</h1>-->
+
+    <div class="header">
+        <a href="/admin">Admin Home</a>
+        <a href="/admin/productsManager">Products Manager</a>
+        <a href="/admin/addProduct">Add Product</a>
+        <!--        <a href="/?productCategorizeName=SAMSUNG">Samsung</a>-->
+        <!--        <a href="/?productCategorizeName=Vsmart">Vsmart</a>-->
+        <!--        <a href="">Sony</a>-->
+        <!--        <a href="">Nokia</a>-->
+        <div class="header-right">
+            <!--            <a href=""></a>-->
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+<!---->
     <h2 id="content"></h2>
-    <button onclick=update()>Update Product</button>
+<!--    <button type="button" onclick=update()>Update Product</button>-->
     <script>
         var urlParams = new URLSearchParams(window.location.search);
         var id=urlParams.get('id');
@@ -31,18 +146,19 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     product = JSON.parse(this.responseText);
-                    var txt="<div>";
-                    txt+=("<div class=myDiv><img src='"+product.image+"'> </div>");
-                    txt+=("<div class=myDiv><form action=''><label>Product Name: </label><input type='text' id='productName' value='"+product.productName+"'><br>" +
-                        "<label>Price: </label><input type='txt' id='price' value='"+product.price+"'><br>");
-                    txt+=("<label>FontCamera: </label><input type='text' id='fontCamera' value='"+product.fontCamera+"'><br>");
-                    txt+=("<label>BackCamera: </label><input type='text' id='backCamera' value='"+product.backCamera+"'><br>");
-                    txt+=("<label>Ram: </label><input type='text' id='ram' value='"+product.ram+"'><br>");
-                    txt+=("<label>Rom: </label><input type='text' id='rom' value='"+product.rom+"'><br>");
-                    txt+=("<label>Chip: </label><input type='text' id='chip' value='"+product.chip+"'><br>");
-                    txt+=("<label>Screen: </label><input type='text' id='screen' value='"+product.screen+"'><br>");
-                    txt+=("<label>Select Image: </label><input type='file' id='image' onchange='encodeFileImageAsURL()'><br><br>");
-                    txt+=("</div></div>");
+                    var txt="";
+                    txt+=("<div class=myDiv1><img src='"+product.image+"'></div>");
+                    txt+=("<div class=myDiv><div class='container'><form action=''><div class='row'><div class='col-25'><label for='productName'>Product Name</label></div><div class='col-75'><input type='text' id='productName' value='"+product.productName+"'></div></div>" +
+                        "<div class='row'><div class='col-25'><label for='price'>Price</label></div><div class='col-75'><input type='text' id='price' value='"+product.price+"'></div></div>");
+                    txt+=("<div class='row'><div class='col-25'><label>FontCamera</label></div><div class='col-75'><input type='text' id='fontCamera' value='"+product.fontCamera+"'></div></div>");
+                    txt+=("<div class='row'><div class='col-25'><label for='backCamera'>BackCamera</label></div><div class='col-75'><input type='text' id='backCamera' value='"+product.backCamera+"'></div></div>");
+                    txt+=("<div class='row'><div class='col-25'><label for='ram'>Ram</label></div><div class='col-75'><input type='text' id='ram' value='"+product.ram+"'></div></div>");
+                    txt+=("<div class='row'><div class='col-25'><label for='rom'>Rom</label></div><div class='col-75'><input type='text' id='rom' value='"+product.rom+"'></div></div>");
+                    txt+=("<div class='row'><div class='col-25'><label for='chip'>Chip</label></div><div class='col-75'><input type='text' id='chip' value='"+product.chip+"'></div></div>");
+                    txt+=("<div class='row'><div class='col-25'><label for='screen'>Screen</label></div><div class='col-75'><input type='text' id='screen' value='"+product.screen+"'></div></div>");
+                    txt+=("<div class='row'><div class='col-25'><label for='image'>Select Image</label></div><div class='col-75'><input type='file' id='image' onchange='encodeFileImageAsURL()'></div></div>");
+                    txt+=("<div class='row'><button class='updateProduct' type='button' onclick='update()'>Update Product</button></div>")
+                    txt+=("</form></div></div>");
                     document.getElementById('content').innerHTML = txt;
                 }
 
