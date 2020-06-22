@@ -41,7 +41,16 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home() {
-        return "index";
+        return "home";
+    }
+
+    @PostMapping("/home")
+    @ResponseBody
+    public Collection<Product> home(@RequestBody(required = false) ProductCategorize productCategorize) {
+        if (productCategorize != null) {
+            return productCategorizeService.findByProductCategorizeName(productCategorize.getProductCategorizeName()).get().getProducts();
+        }
+        return productService.findAll();
     }
 
     @GetMapping("/login")

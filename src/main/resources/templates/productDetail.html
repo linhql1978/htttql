@@ -48,11 +48,11 @@
 <!--    <h1>Product Detail!</h1>-->
 
 <div class="header">
-    <a href="/index">Home</a>
-    <a href="/?productCategorizeName=iPhone">iPhone</a>
-    <a href="/?productCategorizeName=SAMSUNG">Samsung</a>
-    <a href="/?productCategorizeName=Vsmart">Vsmart</a>
-    <a href="/?productCategorizeName=SONY">Sony</a>
+    <a href="/home">Home</a>
+    <a href="/home?productCategorizeName=iPhone">iPhone</a>
+    <a href="/home?productCategorizeName=SAMSUNG">Samsung</a>
+    <a href="/home?productCategorizeName=Vsmart">Vsmart</a>
+    <a href="/home?productCategorizeName=SONY">Sony</a>
     <a href="">Nokia</a>
     <div class="header-right">
         <a href="/customer/cartDetail">Cart Detail</a>
@@ -110,7 +110,7 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     alert(this.responseText);
-                    location.href=('/');
+                    location.href=('/home');
                 }
             };
             var obj={"quantity":quantity,"product":{"id":id}};
